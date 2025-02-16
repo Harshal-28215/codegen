@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { MessageCircle } from 'lucide-react'
-import Link from 'next/link'
 
 function Sidebar({ isOpen }: { isOpen: boolean }) {
     return (
