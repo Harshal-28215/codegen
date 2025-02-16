@@ -7,13 +7,12 @@ import { z } from "zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
+import { redirect } from "next/navigation"
 
 const FormSchema = z.object({
   bio: z
@@ -32,7 +31,7 @@ export function TextareaForm() {
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
+    redirect(`/Workspace/${123}`)
   }
 
   return (
