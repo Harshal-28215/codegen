@@ -34,8 +34,6 @@ function MassageBox() {
     function onSubmit(data: z.infer<typeof FormSchema>) {
         redirect(`/Workspace/${123}`)
     }
-
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="h-[150px] w-3/12 space-y-6 mt-4 fixed bottom-1">

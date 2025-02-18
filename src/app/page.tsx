@@ -1,9 +1,9 @@
 import LandingUi from "@/components/LandingUi/LandingUi";
-import Header from "@/components/Navbar/Header";
 
 export default function Home() {
   return (
-    <main>
+    <main className="max-w-[1920px] mx-auto">
+      {/* <div className="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen relative overflow-hidden"> */}
       <LandingUi />
     </main>
   );
