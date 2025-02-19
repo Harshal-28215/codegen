@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Button } from '../ui/button'
 import { MessageCircle } from 'lucide-react'
 
-function Sidebar({ isOpen }: { isOpen: boolean }) {
+const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean }>(({ isOpen }, ref) => {
     return (
-        <aside className={`h-[calc(100vh-120px)] w-[250px] bg-white/5 backdrop-blur-xl shadow-md fixed top-[100px] flex flex-col items-center rounded-2xl transition-all duration-300 pt-3 px-3 ${isOpen ? 'left-[5%]' : '-left-80'}`}>
+        <aside ref={ref} className={`h-[calc(100vh-120px)] w-[250px] bg-white/5 backdrop-blur-xl shadow-md fixed top-[100px] flex flex-col items-center rounded-2xl transition-all duration-300 pt-3 px-3 z-20 ${isOpen ? 'left-[5%]' : '-left-80'}`}>
             <Button className='bg-white/70 hover:bg-white text-black w-[100%]'> <MessageCircle /> Start New Chat</Button>
 
             <h1 className='text-white font-semibold my-5 w-full px-2'>Your Chat</h1>
@@ -17,6 +17,6 @@ function Sidebar({ isOpen }: { isOpen: boolean }) {
             </div>
         </aside>
     )
-}
+})
 
 export default Sidebar

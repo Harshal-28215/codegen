@@ -4,10 +4,10 @@ import {
     AvatarImage,
   } from "@/components/ui/avatar"
   
-  export function AvatarDemo() {
+  export function AvatarDemo({ image }: { image: string }) {    
     return (
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarImage src={image} alt="@shadcn" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
     )

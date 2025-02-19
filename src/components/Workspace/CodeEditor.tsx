@@ -23,11 +23,11 @@ function CodeEditor() {
                 <SandpackLayout>
                     {activeTab === 'code' ?
                         <>
-                            <SandpackFileExplorer style={{ height: 'calc(100vh - 140px)',width:'100%' }} />
-                            <SandpackCodeEditor style={{ height: 'calc(100vh - 140px)',width:'100%' }} />
+                            <SandpackFileExplorer style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
+                            <SandpackCodeEditor style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
                         </>
                         :
-                        <SandpackPreview style={{ height: 'calc(100vh - 140px)',width:'100%' }} showNavigator={true}/>
+                        <SandpackPreview style={{ height: 'calc(100vh - 140px)', width: '100%' }} showNavigator={true} />
                     }
                 </SandpackLayout>
             </SandpackProvider>

@@ -1,6 +1,7 @@
 import { SidebarClose, SidebarOpen } from 'lucide-react'
 import React from 'react'
 import { AvatarDemo } from './Avtar'
+import Signin from './Signin'
 
 function Navbar({ setIsOpen, isOpen }: { setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, isOpen: boolean }) {
   return (
@@ -10,7 +11,8 @@ function Navbar({ setIsOpen, isOpen }: { setIsOpen: React.Dispatch<React.SetStat
         :
         <SidebarOpen onClick={() => setIsOpen(true)} className='text-white hover:cursor-pointer' />
       }
-      <AvatarDemo />
+      {/* <AvatarDemo /> */}
+      <Signin />
     </nav>
   )
 }

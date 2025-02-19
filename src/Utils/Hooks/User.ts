@@ -1,0 +1,40 @@
+import { useEffect, useState } from "react";
+
+type UserType = {
+    name: string;
+    email: string;
+    image: string;
+    id: string;
+};
+export const useUser = () => {
+    const [user, setUser] = useState<UserType | null>(null);
+
+    useEffect(() => {
+        const getUser = async () => {
+            const value = localStorage.getItem("user");
+            if (value) {
+                const { email, sub } = JSON.parse(value);
+                try {
+                    const response = await fetch(`/api/user?email=${email}&id=${sub}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        setUser(data.users);
+                    } else {
+                        console.error("User not found");
+                    }
+                } catch (error) {
+                    console.error("Error fetching user:", error);
+                }
+            }
+        };
+
+        getUser();
+    }, []);
+
+    return { user };
+};
