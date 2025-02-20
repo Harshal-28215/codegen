@@ -29,10 +29,6 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url);
     const {email,id} = Object.fromEntries(searchParams);
-
-    console.log(email,id);
-    
-
     const users = await User.findOne({email});
 
     if (users.id === id) {

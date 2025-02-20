@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useMyContext } from "@/context/CodeAgeContext";
+import { useEffect } from "react";
 
-type UserType = {
-    name: string;
-    email: string;
-    image: string;
-    id: string;
-};
+
 export const useUser = () => {
-    const [user, setUser] = useState<UserType | null>(null);
+
+    const {user,setUser} = useMyContext();
 
     useEffect(() => {
         const getUser = async () => {

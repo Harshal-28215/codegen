@@ -1,15 +1,9 @@
-import {
-    Avatar,
-    AvatarFallback,
-    AvatarImage,
-  } from "@/components/ui/avatar"
+import Image from "next/image"
   
-  export function AvatarDemo({ image }: { image: string }) {    
+  export function AvatarDemo({ image }: { image: string }) {
+    
     return (
-      <Avatar>
-        <AvatarImage src={image} alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <Image className="rounded-full" src={image} alt="User" width={50} height={50}/>
     )
   }
 
