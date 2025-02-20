@@ -39,3 +39,23 @@ export async function GET(request: Request) {
         return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
     }
 }
+
+export async function PUT(request: Request) {
+    await connectToDatabase();
+
+    const { message, role } = await request.json();
+    const {searchParams} = new URL(request.url); 
+    const {id} = Object.fromEntries(searchParams);
+
+    try {
+        const data = await Workspace.findByIdAndUpdate(
+            id,
+            {$push:{message:{role,message}}},
+            {new: true}
+        );
+        return NextResponse.json(data, { status: 200 });
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
+    }
+}
