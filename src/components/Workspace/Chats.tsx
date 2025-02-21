@@ -8,7 +8,7 @@ function Chats() {
 
   const params = useParams();
   const id = params.id as string;
-  
+
   const chats = useChat(id);
 
   return (

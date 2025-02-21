@@ -12,6 +12,9 @@ export function useSideBarChat() {
     const [userChat, setUserChat] = useState<userChat>([])
 
     useEffect(() => {
+        if (user === null) {
+            return
+        }
         async function getUserChat() {
             const response = await fetch(`/api/workspace?uid=${user?._id}`, {
                 method: 'GET',

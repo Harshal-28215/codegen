@@ -65,7 +65,7 @@ export function TextareaForm() {
                   {...field}
                 />
               </FormControl>
-              <Button className="absolute top-[12px] right-[12px] w-[50px]" type="submit"><ArrowRight /></Button>
+              <Button className="absolute top-[12px] right-[12px] w-[50px] bg-black" type="submit"><ArrowRight /></Button>
               <FormMessage />
             </FormItem>
           )}

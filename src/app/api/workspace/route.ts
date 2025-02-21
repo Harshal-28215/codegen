@@ -56,14 +56,15 @@ export async function PUT(request: Request) {
     const { message, role } = await request.json();
     const {searchParams} = new URL(request.url); 
     const {id} = Object.fromEntries(searchParams);
-
+    
     try {
         const data = await Workspace.findByIdAndUpdate(
             id,
             {$push:{message:{role,message}}},
             {new: true}
         );
-        return NextResponse.json(data, { status: 200 });
+        const response = data.message[data.message.length - 1];
+        return NextResponse.json({data:response}, { status: 200 });
     } catch (error) {
         console.log(error);
         return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
