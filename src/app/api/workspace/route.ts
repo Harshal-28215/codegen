@@ -29,15 +29,25 @@ export async function GET(request: Request) {
     await connectToDatabase();
 
     const {searchParams} = new URL(request.url); 
-    const {id} = Object.fromEntries(searchParams);
+    const {id,uid} = Object.fromEntries(searchParams);
 
-    try {
-        const data = await Workspace.findById(id);
-        return NextResponse.json(data, { status: 200 });
-    } catch (error) {
-        console.log(error);
-        return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
+    if (id) {
+        try {
+            const data = await Workspace.findById(id);
+            return NextResponse.json(data, { status: 200 });
+        } catch (error) {
+            console.log(error);
+            return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
+        }
+    }else if (uid) {
+        try {
+            const data = await Workspace.find({user:uid});
+            return NextResponse.json(data, { status: 200 });
+        } catch (error) {
+            return NextResponse.json({ message: "workspace not found", error }, { status: 404 });
+        }
     }
+
 }
 
 export async function PUT(request: Request) {
