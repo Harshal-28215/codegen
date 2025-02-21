@@ -1,9 +1,11 @@
 import { useMyContext } from "@/context/CodeAgeContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { updatechat } from "../UpdataChatFunction";
+import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
     const { chats, setChats } = useMyContext();
+    const hasGeneratedResponse = useRef(false);
 
     useEffect(() => {
         async function getChats() {
@@ -17,12 +19,18 @@ export function useChat(id: string) {
             setChats(data.message);
         }
         getChats()
-    }, [])
+    }, [id])
 
     useEffect(() => {
         async function generateChat() {
-            if (chats.length > 0 && chats[chats.length - 1].role === 'user') {
-                const Prompt = chats.map(chat => chat.message).join('\n');
+            if (chats.length > 0 &&
+                chats[chats.length - 1].role === 'user' &&
+                !hasGeneratedResponse.current) {
+
+                hasGeneratedResponse.current = true;
+
+                const messages = chats.map(chat => chat.message).join('\n');
+                const Prompt = JSON.stringify({ messages }) + prompts.CHAT_PROMPT;
                 const response = await fetch(`/api/codegenerate`, {
                     method: 'POST',
                     headers: {
@@ -35,15 +43,14 @@ export function useChat(id: string) {
                     message: data.data,
                     role: 'Bot',
                 }
-                console.log(bodyData);
-                
+
                 updatechat(bodyData, id, setChats);
             } else {
                 return;
             }
         }
         generateChat();
-    }, [chats])
+    }, [chats, id])
 
     return chats;
 }
