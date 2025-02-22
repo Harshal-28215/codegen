@@ -31,4 +31,6 @@ const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean, setIsOpen: React.D
     )
 })
 
+Sidebar.displayName = "Sidebar";
+
 export default Sidebar
