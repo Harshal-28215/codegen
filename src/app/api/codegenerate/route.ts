@@ -9,6 +9,7 @@ export async function POST(request: Request) {
     
         return NextResponse.json(JSON.parse(data), {status: 200});
     } catch (error) {
+        console.log(error);
         return NextResponse.json({message:"error generating code",error},{status:404});
     }
 }
