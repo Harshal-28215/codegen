@@ -16,18 +16,26 @@ import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
 import { ArrowRight } from "lucide-react"
 import { useMyContext } from "@/context/CodeAgeContext"
+import { useEffect } from "react"
 
 const FormSchema = z.object({
   message: z.string()
 })
 
 export function TextareaForm() {
-  const {user} = useMyContext();
+  const { user, homeprompt } = useMyContext();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      message: homeprompt
+    }
   })
+
+  useEffect(() => {
+    form.setValue("message", homeprompt);
+  }, [homeprompt, form.setValue]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const bodyData = {

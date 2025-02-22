@@ -22,6 +22,9 @@ interface ContextProps {
 
   chats: Chat | [];
   setChats: React.Dispatch<React.SetStateAction<Chat | []>>;
+
+  homeprompt: string;
+  setHomePrompt: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const defaultContext: ContextProps = {
@@ -29,7 +32,10 @@ const defaultContext: ContextProps = {
   setUser: () => { },
 
   chats: [],
-  setChats: () => { }
+  setChats: () => { },
+
+  homeprompt: '',
+  setHomePrompt: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -37,14 +43,16 @@ const MyContext = createContext<ContextProps>(defaultContext);
 export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX.Element => {
   const [user, setUser] = useState(defaultContext.user);
   const [chats, setChats] = useState(defaultContext.chats);
-
+  const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
 
 
   const value = {
     user,
     setUser,
     chats,
-    setChats
+    setChats,
+    homeprompt,
+    setHomePrompt,
   };
 
   return (
