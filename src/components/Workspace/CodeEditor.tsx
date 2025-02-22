@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import {
     SandpackProvider,
     SandpackLayout,
@@ -8,9 +8,46 @@ import {
     SandpackPreview,
     SandpackFileExplorer,
 } from "@codesandbox/sandpack-react";
+import File from '@/Utils/Files and Dependencies/File';
+import { useMyContext } from '@/context/CodeAgeContext';
+import prompts from '@/Utils/Prompts/prompts';
 
 function CodeEditor() {
-    const [activeTab, setActiveTab] = React.useState('code')
+    const [activeTab, setActiveTab] = React.useState('code');
+    const {files, setFiles} = useMyContext();
+    const { chats } = useMyContext();
+    const hasGeneratedResponse = useRef(false);
+
+
+    async function getFiles() {
+        if (chats.length > 0 &&
+            chats[chats.length - 1].role === 'user' &&
+            !hasGeneratedResponse.current) {
+
+            hasGeneratedResponse.current = true;
+
+            const messages = chats.map(chat => chat.message).join('\n');
+            const Prompt = JSON.stringify({ messages }) + " " + prompts.CODE_GEN_PROMPT;
+
+            const response = await fetch('/api/codegenerate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Prompt })
+            })
+            const data = await response.json();
+            if (response.ok) {
+                const mergedfile = { ...File.DEFAULT_FILE, ...data.files }
+                setFiles(mergedfile);
+            }
+        }
+    }
+
+    useEffect(() => {
+        getFiles();
+    }, [chats])
+
     return (
         <section className='w-8/12'>
             <div className='bg-[#181818] w-full p-2 rounded-sm'>
@@ -19,7 +56,16 @@ function CodeEditor() {
                     <h1 className={`${activeTab !== 'code' && 'font-bold bg-white/10 rounded-full'} px-2 cursor-pointer`} onClick={() => setActiveTab('')}>Preview</h1>
                 </div>
             </div>
-            <SandpackProvider template="react" theme='dark'>
+            <SandpackProvider
+                files={files}
+                template="react"
+                theme='dark'
+                customSetup={{
+                    dependencies: {
+                      ...File.DEPENDANCY
+                    },
+                  }}>
+
                 <SandpackLayout>
                     {activeTab === 'code' ?
                         <>

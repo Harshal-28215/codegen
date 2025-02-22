@@ -15,17 +15,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { useParams } from "next/navigation"
 import { ArrowRight } from "lucide-react"
 import { Button } from "../ui/button"
-import { useEffect } from "react"
 import { updatechat } from "@/Utils/UpdataChatFunction"
 import { useMyContext } from "@/context/CodeAgeContext"
 
-type chatUpdatePrompt = {
-    bodyData: {
-        message: string,
-        role: string
-    },
-    id: string,
-}
 
 const FormSchema = z.object({
     message: z.string()

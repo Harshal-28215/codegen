@@ -1,5 +1,6 @@
 "use client"
 
+import File from '@/Utils/Files and Dependencies/File';
 import React, { createContext, useContext, useState, ReactNode, JSX } from 'react';
 
 type UserType = {
@@ -25,6 +26,9 @@ interface ContextProps {
 
   homeprompt: string;
   setHomePrompt: React.Dispatch<React.SetStateAction<string>>;
+
+  files: typeof File.DEFAULT_FILE;
+  setFiles: React.Dispatch<React.SetStateAction<typeof File.DEFAULT_FILE>>;
 }
 
 const defaultContext: ContextProps = {
@@ -36,6 +40,9 @@ const defaultContext: ContextProps = {
 
   homeprompt: '',
   setHomePrompt: () => { },
+
+  files: File.DEFAULT_FILE,
+  setFiles: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -44,6 +51,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [user, setUser] = useState(defaultContext.user);
   const [chats, setChats] = useState(defaultContext.chats);
   const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
+  const [files, setFiles] = React.useState(File.DEFAULT_FILE);
+
 
 
   const value = {
@@ -53,6 +62,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     setChats,
     homeprompt,
     setHomePrompt,
+    files,
+    setFiles
   };
 
   return (

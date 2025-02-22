@@ -5,6 +5,7 @@ const workspaceSchema = new mongoose.Schema({
         role: String,
         message: String,
     }],
+    files:Object,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

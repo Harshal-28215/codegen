@@ -1,6 +1,5 @@
 import { SidebarClose, SidebarOpen } from 'lucide-react'
 import React from 'react'
-import { AvatarDemo } from './Avtar'
 import Signin from './Signin'
 
 function Navbar({ setIsOpen, isOpen }: { setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, isOpen: boolean }) {

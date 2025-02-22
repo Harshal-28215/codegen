@@ -17,6 +17,7 @@ import { Button } from "../ui/button"
 import { ArrowRight } from "lucide-react"
 import { useMyContext } from "@/context/CodeAgeContext"
 import { useEffect } from "react"
+import File from "@/Utils/Files and Dependencies/File"
 
 const FormSchema = z.object({
   message: z.string()
@@ -41,7 +42,8 @@ export function TextareaForm() {
     const bodyData = {
       message: data.message,
       role: "user",
-      user: user?._id
+      user: user?._id,
+      files:JSON.stringify(File.DEFAULT_FILE)
     }
     const response = await fetch(`/api/workspace`, {
       method: "POST",
@@ -53,6 +55,7 @@ export function TextareaForm() {
     const res = await response.json()
     if (response.ok) {
       router.push(`/Workspace/${res.dataId}`)
+      form.reset();
     } else {
       console.log(res.message);
     }

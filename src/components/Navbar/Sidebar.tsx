@@ -22,9 +22,11 @@ const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean, setIsOpen: React.D
 
             <h1 className='text-white font-semibold my-5 w-full px-2'>Your Chat</h1>
 
-            {userChat.map((chat) => (
-                <SidebarChats chat={chat} key={chat._id} setIsOpen={setIsOpen}/>
-            ))}
+            <div className='w-full h-[calc(100%-100px)] overflow-y-auto pb-3'>
+                {userChat.map((chat) => (
+                    <SidebarChats chat={chat} key={chat._id} setIsOpen={setIsOpen} />
+                ))}
+            </div>
         </aside>
     )
 })

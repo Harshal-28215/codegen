@@ -5,6 +5,7 @@ import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
     const { chats, setChats } = useMyContext();
+    // const { files } = useMyContext();
     const hasGeneratedResponse = useRef(false);
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export function useChat(id: string) {
 
                 const messages = chats.map(chat => chat.message).join('\n');
                 const Prompt = JSON.stringify({ messages }) + prompts.CHAT_PROMPT;
-                const response = await fetch(`/api/codegenerate`, {
+                const response = await fetch(`/api/chatgenerate`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -51,6 +52,18 @@ export function useChat(id: string) {
         }
         generateChat();
     }, [chats, id])
+
+    // useEffect(() => {
+    //     async function generateChat() {
+    //         const response = await fetch(`/api/workspace?id=${id}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({ files })
+    //         })
+    //     }
+    // }, [files, id])
 
     return chats;
 }
