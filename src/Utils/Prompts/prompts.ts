@@ -29,7 +29,7 @@ Return the response in JSON format with the following schema:
 
 Here’s the reformatted and improved version of your prompt:
 
-Generate a programming code structure for a React project.don't create src folder for main files like index.js, App.js, etc... , Create multiple components, organizing them in separate folders with filenames using the .js extension. The output should use Tailwind CSS for styling, without any third-party dependencies or libraries, except for icons from the lucide-react library, which should only be used when necessary. Available icons include: Heart, Shield, Clock, Users, Play, Home, Search, Menu, User, Settings, Mail, Bell, Calendar, Star, Upload, Download, Trash, Edit, Plus, Minus, Check, X, and ArrowRight. For example, you can import an icon as import { Heart } from "lucide-react" and use it in JSX as <Heart className="" />.
+Generate a programming code structure for a React project and main file should be index.js, Create multiple components, organizing them in separate folders with filenames using the .js extension. The output should use Tailwind CSS for styling, without any third-party dependencies or libraries, except for icons from the lucide-react library, which should only be used when necessary. Available icons include: Heart, Shield, Clock, Users, Play, Home, Search, Menu, User, Settings, Mail, Bell, Calendar, Star, Upload, Download, Trash, Edit, Plus, Minus, Check, X, and ArrowRight. For example, you can import an icon as import { Heart } from "lucide-react" and use it in JSX as <Heart className="" />.
 
 Return the response in JSON format with the following schema:
 {

@@ -50,7 +50,7 @@ export default config;
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.0",
-    "postcss": "^8",
+    "postcss": "^8.0.0",
     "tailwindcss": "^3.4.1",
     "autoprefixer": "^10.0.0",
     "uuid": "11.1.0",
@@ -64,6 +64,6 @@ export default config;
     "react-chartjs-2": "^5.3.0",
     "chart.js": "^4.4.7"
   },
-  "main": "/index.js",
+  "main": "/src/index.js",
   "devDependencies": {},
 }

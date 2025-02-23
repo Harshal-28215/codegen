@@ -14,7 +14,7 @@ import prompts from '@/Utils/Prompts/prompts';
 
 function CodeEditor() {
     const [activeTab, setActiveTab] = React.useState('code');
-    const {files, setFiles} = useMyContext();
+    const { files, setFiles } = useMyContext();
     const { chats } = useMyContext();
     const hasGeneratedResponse = useRef(false);
 
@@ -59,12 +59,17 @@ function CodeEditor() {
             <SandpackProvider
                 files={files}
                 template="react"
+                options={{
+                    externalResources: [
+                      "https://unpkg.com/@tailwindcss/browser@4"
+                    ]
+                  }}
                 theme='dark'
                 customSetup={{
                     dependencies: {
-                      ...File.DEPENDANCY
+                        ...File.DEPENDANCY
                     },
-                  }}>
+                }}>
 
                 <SandpackLayout>
                     {activeTab === 'code' ?
