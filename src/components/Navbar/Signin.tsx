@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginPopUp from '../LoginPopUp';
+import LoginPopUp from './LoginPopUp';
 import { AvatarDemo } from './Avtar';
 import { useUser } from '@/Utils/Hooks/User';
 
