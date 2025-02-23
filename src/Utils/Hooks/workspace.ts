@@ -5,7 +5,7 @@ import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
     const { chats, setChats } = useMyContext();
-    // const { files } = useMyContext();
+    const {setFiles} = useMyContext();
     const hasGeneratedResponse = useRef(false);
 
     useEffect(() => {
@@ -18,6 +18,7 @@ export function useChat(id: string) {
             })
             const data = await response.json()
             setChats(data.message);
+            setFiles(data.files);
         }
         getChats()
     }, [id])
@@ -40,30 +41,23 @@ export function useChat(id: string) {
                     body: JSON.stringify({ Prompt })
                 })
                 const data = await response.json()
-                const bodyData = {
-                    message: data.data,
-                    role: 'Bot',
+                if (response.ok) {
+                    const bodyData = {
+                        message: data.data,
+                        role: 'Bot',
+                    }
+    
+                    await updatechat(bodyData, id, setChats);
+                    console.log('chat updated');
+                    
                 }
-
-                updatechat(bodyData, id, setChats);
             } else {
-                return;
+                console.log('No new message from user or already generated response');
+                
             }
         }
         generateChat();
     }, [chats, id])
-
-    // useEffect(() => {
-    //     async function generateChat() {
-    //         const response = await fetch(`/api/workspace?id=${id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ files })
-    //         })
-    //     }
-    // }, [files, id])
 
     return chats;
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import {
     SandpackProvider,
     SandpackLayout,
@@ -9,44 +9,17 @@ import {
     SandpackFileExplorer,
 } from "@codesandbox/sandpack-react";
 import File from '@/Utils/Files and Dependencies/File';
-import { useMyContext } from '@/context/CodeAgeContext';
-import prompts from '@/Utils/Prompts/prompts';
+import { useGetFiles } from '@/Utils/Hooks/updatecode';
+import { useParams } from 'next/navigation';
 
 function CodeEditor() {
+
+      const params = useParams();
+      const id = params.id as string;
     const [activeTab, setActiveTab] = React.useState('code');
-    const { files, setFiles } = useMyContext();
-    const { chats } = useMyContext();
-    const hasGeneratedResponse = useRef(false);
 
-
-    async function getFiles() {
-        if (chats.length > 0 &&
-            chats[chats.length - 1].role === 'user' &&
-            !hasGeneratedResponse.current) {
-
-            hasGeneratedResponse.current = true;
-
-            const messages = chats.map(chat => chat.message).join('\n');
-            const Prompt = JSON.stringify({ messages }) + " " + prompts.CODE_GEN_PROMPT;
-
-            const response = await fetch('/api/codegenerate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ Prompt })
-            })
-            const data = await response.json();
-            if (response.ok) {
-                const mergedfile = { ...File.DEFAULT_FILE, ...data.files }
-                setFiles(mergedfile);
-            }
-        }
-    }
-
-    useEffect(() => {
-        getFiles();
-    }, [chats])
+    const {updatedFiles} = useGetFiles(id);
+    
 
     return (
         <section className='w-8/12'>
@@ -57,20 +30,19 @@ function CodeEditor() {
                 </div>
             </div>
             <SandpackProvider
-                files={files}
+                files={updatedFiles}
                 template="react"
                 options={{
                     externalResources: [
-                      "https://unpkg.com/@tailwindcss/browser@4"
+                        "https://unpkg.com/@tailwindcss/browser@4"
                     ]
-                  }}
+                }}
                 theme='dark'
                 customSetup={{
                     dependencies: {
                         ...File.DEPENDANCY
                     },
                 }}>
-
                 <SandpackLayout>
                     {activeTab === 'code' ?
                         <>

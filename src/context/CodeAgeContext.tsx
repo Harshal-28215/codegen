@@ -1,7 +1,7 @@
 "use client"
 
 import File from '@/Utils/Files and Dependencies/File';
-import React, { createContext, useContext, useState, ReactNode, JSX } from 'react';
+import React, { createContext, useContext, useState, ReactNode, JSX, useEffect } from 'react';
 
 type UserType = {
   email: string;
@@ -11,7 +11,7 @@ type UserType = {
   name: string;
 };
 
-type Chat = {
+export type Chat = {
   role: string;
   message: string;
   _id: string;
@@ -52,7 +52,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [chats, setChats] = useState(defaultContext.chats);
   const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
   const [files, setFiles] = React.useState(File.DEFAULT_FILE);
-
 
 
   const value = {
