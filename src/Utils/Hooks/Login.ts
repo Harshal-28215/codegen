@@ -1,7 +1,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 
-export default function useLogin(closedialog:(value: boolean) => void){
+export default function useLogin(closedialog: (value: boolean) => void, setUserSeted: React.Dispatch<React.SetStateAction<boolean>>) {
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             const userInfo = await axios.get(
@@ -19,12 +19,12 @@ export default function useLogin(closedialog:(value: boolean) => void){
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('user', JSON.stringify(data.data));
-            }else{
+            } else {
                 console.log('Failed to create user');
             }
         },
         onError: errorResponse => console.log(errorResponse),
     });
 
-    return {googleLogin}
+    return { googleLogin }
 }

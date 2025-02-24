@@ -17,7 +17,7 @@ export type Chat = {
   _id: string;
 }[]
 
-export type fileType=typeof File.DEFAULT_FILE
+export type fileType = typeof File.DEFAULT_FILE
 
 interface ContextProps {
   user: UserType | null;
@@ -35,8 +35,11 @@ interface ContextProps {
   codeLoading: boolean;
   setCodeLoading: React.Dispatch<React.SetStateAction<boolean>>;
 
-  open:boolean;
-  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  userSeted: boolean;
+  setUserSeted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -55,8 +58,11 @@ const defaultContext: ContextProps = {
   codeLoading: false,
   setCodeLoading: () => { },
 
-  open:false,
-  setOpen:()=>{}
+  open: false,
+  setOpen: () => { },
+
+  userSeted: false,
+  setUserSeted: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -65,9 +71,10 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [user, setUser] = useState(defaultContext.user);
   const [chats, setChats] = useState(defaultContext.chats);
   const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
-  const [files, setFiles] = React.useState(defaultContext.files);
+  const [files, setFiles] = useState(defaultContext.files);
   const [codeLoading, setCodeLoading] = useState(defaultContext.codeLoading);
-    const [open, setOpen] = React.useState(defaultContext.open);
+  const [open, setOpen] = useState(defaultContext.open);
+  const [userSeted, setUserSeted] = useState(defaultContext.userSeted);
 
 
 
@@ -83,7 +90,9 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     codeLoading,
     setCodeLoading,
     open,
-    setOpen
+    setOpen,
+    userSeted,
+    setUserSeted,
   };
 
   return (

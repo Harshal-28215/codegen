@@ -9,13 +9,15 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { useMyContext } from "@/context/CodeAgeContext";
 import useLogin from "@/Utils/Hooks/Login";
 import React from "react";
 
 
 function LoginPopUp({ opendialog, closedialog }: { opendialog: boolean, closedialog: (value: boolean) => void }) {
 
-    const { googleLogin } = useLogin(closedialog);
+    const {setUserSeted} = useMyContext();
+    const { googleLogin } = useLogin(closedialog,setUserSeted);
     
     return (
         <Dialog open={opendialog} onOpenChange={closedialog}>
