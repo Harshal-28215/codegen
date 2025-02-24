@@ -37,6 +37,9 @@ interface ContextProps {
 
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  loginLoading: boolean;
+  setLoginLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -57,6 +60,9 @@ const defaultContext: ContextProps = {
 
   open: false,
   setOpen: () => { },
+
+  loginLoading: false,
+  setLoginLoading: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -68,6 +74,7 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [files, setFiles] = useState(defaultContext.files);
   const [codeLoading, setCodeLoading] = useState(defaultContext.codeLoading);
   const [open, setOpen] = useState(defaultContext.open);
+  const [loginLoading, setLoginLoading] = useState(defaultContext.loginLoading);
 
 
 
@@ -84,6 +91,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     setCodeLoading,
     open,
     setOpen,
+    loginLoading,
+    setLoginLoading,
   };
 
   return (
