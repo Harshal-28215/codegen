@@ -17,6 +17,8 @@ export type Chat = {
   _id: string;
 }[]
 
+export type fileType=typeof File.DEFAULT_FILE
+
 interface ContextProps {
   user: UserType | null;
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
@@ -29,6 +31,9 @@ interface ContextProps {
 
   files: typeof File.DEFAULT_FILE;
   setFiles: React.Dispatch<React.SetStateAction<typeof File.DEFAULT_FILE>>;
+
+  codeLoading: boolean;
+  setCodeLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -43,6 +48,9 @@ const defaultContext: ContextProps = {
 
   files: File.DEFAULT_FILE,
   setFiles: () => { },
+
+  codeLoading: false,
+  setCodeLoading: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -52,6 +60,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [chats, setChats] = useState(defaultContext.chats);
   const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
   const [files, setFiles] = React.useState(File.DEFAULT_FILE);
+  const [codeLoading, setCodeLoading] = useState(false);
+
 
 
   const value = {
@@ -62,7 +72,9 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     homeprompt,
     setHomePrompt,
     files,
-    setFiles
+    setFiles,
+    codeLoading,
+    setCodeLoading,
   };
 
   return (

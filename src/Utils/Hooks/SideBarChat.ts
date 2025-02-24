@@ -7,7 +7,7 @@ type userChat = {
     user: string
 }[]
 
-export function useSideBarChat() {
+export function useSideBarChat(id:string) {
     const { user } = useMyContext();
     const [userChat, setUserChat] = useState<userChat>([])
 
@@ -30,7 +30,7 @@ export function useSideBarChat() {
             }
         }
         getUserChat()
-    }, [user])
+    }, [user,id])
 
     return { userChat }
 }

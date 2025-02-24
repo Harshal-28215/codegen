@@ -11,15 +11,16 @@ import {
 import File from '@/Utils/Files and Dependencies/File';
 import { useGetFiles } from '@/Utils/Hooks/updatecode';
 import { useParams } from 'next/navigation';
+import CodeLoder from './CodeLoder';
 
 function CodeEditor() {
 
-      const params = useParams();
-      const id = params.id as string;
+    const params = useParams();
+    const id = params.id as string;
     const [activeTab, setActiveTab] = React.useState('code');
 
-    const {updatedFiles} = useGetFiles(id);
-    
+    const { updatedFiles, codeLoading } = useGetFiles(id);
+
 
     return (
         <section className='w-8/12'>
@@ -44,13 +45,17 @@ function CodeEditor() {
                     },
                 }}>
                 <SandpackLayout>
-                    {activeTab === 'code' ?
-                        <>
-                            <SandpackFileExplorer style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
-                            <SandpackCodeEditor style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
-                        </>
+                    {codeLoading ?
+                        <CodeLoder />
                         :
-                        <SandpackPreview style={{ height: 'calc(100vh - 140px)', width: '100%' }} showNavigator={true} />
+                        activeTab === 'code' ?
+                            <>
+                                <SandpackFileExplorer style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
+                                <SandpackCodeEditor style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
+                            </>
+                            :
+                            <SandpackPreview style={{ height: 'calc(100vh - 140px)', width: '100%' }} showNavigator={true} />
+
                     }
                 </SandpackLayout>
             </SandpackProvider>

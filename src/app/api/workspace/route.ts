@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 
     if (id) {
         try {
-            const data = await Workspace.findById(id);
+            const data = await Workspace.findById(id).sort({ createdAt: -1 });
             return NextResponse.json(data, { status: 200 });
         } catch (error) {
             console.log(error);
