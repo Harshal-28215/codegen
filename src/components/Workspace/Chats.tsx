@@ -22,7 +22,7 @@ function Chats() {
   }, [chats, loading]);
 
   return (
-    <div className='w-full h-[calc(100%-150px)] overflow-y-auto space-y-2 p-2'>
+    <div className='w-full h-[calc(100%-160px)] overflow-y-auto space-y-2 p-2'>
       {
         chats.map((chat) => (
           chat.role === 'user' ?

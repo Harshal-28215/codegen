@@ -91,10 +91,20 @@ body{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.codeediter{
+  height: calc(100vh - 140px) !important;
+  width: 100% !important;
+}
+
+.fileexplorer{
+  height: calc(100vh - 140px) !important;
+  width: 100% !important;
+}
 
 .skeleton {
   animation: skeleton-loading 1s linear infinite alternate-reverse;
 }
+
 
 @keyframes skeleton-loading {
   0% {
@@ -102,5 +112,15 @@ body{
   }
   100% {
     background-color: hsl(0, 0%, 32%);
+  }
+}
+
+@media (max-width: 768px) {
+  .fileexplorer{
+    height: calc(50vh - 140px) !important;
+    width: 100% !important;
+  }
+  .codeediter{
+    height: 100vh !important;
   }
 }

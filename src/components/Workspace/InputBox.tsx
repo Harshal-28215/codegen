@@ -47,7 +47,7 @@ function InputBox() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="h-[150px] w-3/12 space-y-6 mt-4 fixed bottom-1 bg-white/10 rounded-md border border-white/20">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="h-[150px] w-full space-y-6 mt-4 absolute bottom-1 bg-white/10 rounded-md border border-white/20">
                 <FormField
                     control={form.control}
                     name="message"

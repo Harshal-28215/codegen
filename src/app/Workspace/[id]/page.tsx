@@ -4,7 +4,7 @@ import React from 'react'
 
 function page() {
   return (
-    <main className='h-[calc(100vh-100px)] w-full flex justify-center items-center mt-2 gap-4'>
+    <main className='md:h-[calc(100vh-100px)] w-full flex md:flex-row flex-col justify-center items-center mt-2 gap-4'>
       <ChatBox />
       <CodeEditor />
     </main>

@@ -14,7 +14,7 @@ function Suggestions() {
     'Create Authentication Ui'
   ]
   return (
-    <div className='w-3/6 flex flex-wrap justify-center items-center gap-4 mt-3'>
+    <div className='w-full sm:5/6 md:w-4/6 lg:w-3/6 flex flex-wrap justify-center items-center gap-4 mt-3'>
       {suggestions.map((suggestion, index) => (
         <p className='flex justify-center items-center py-1 px-2 text-center rounded-full border-2 border-white/20 text-white/80 cursor-pointer hover:border-white hover:text-white' key={index} onClick={()=>setHomePrompt(suggestion)}>{suggestion}</p>
       ))}

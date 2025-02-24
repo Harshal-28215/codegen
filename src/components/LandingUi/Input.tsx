@@ -69,7 +69,7 @@ export function TextareaForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/6 h-[200px] space-y-6 mt-4 relative bg-white/10 p-3 rounded-md">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full sm:w-4/6 md:w-3/6 lg:w-5/12 h-[200px] space-y-6 mt-4 relative bg-white/10 p-3 rounded-md">
         <FormField
           control={form.control}
           name="message"

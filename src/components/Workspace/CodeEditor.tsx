@@ -23,7 +23,7 @@ function CodeEditor() {
 
 
     return (
-        <section className='w-8/12'>
+        <section className='md:w-8/12 w-10/12'>
             <div className='bg-[#181818] w-full p-2 rounded-sm'>
                 <div className='flex'>
                     <h1 className={`${activeTab === 'code' && 'font-bold bg-white/10 rounded-full'} px-2 cursor-pointer`} onClick={() => setActiveTab('code')}>Code</h1>
@@ -50,11 +50,11 @@ function CodeEditor() {
                         :
                         activeTab === 'code' ?
                             <>
-                                <SandpackFileExplorer style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
-                                <SandpackCodeEditor style={{ height: 'calc(100vh - 140px)', width: '100%' }} />
+                                <SandpackFileExplorer className='fileexplorer' />
+                                <SandpackCodeEditor className='codeediter' />
                             </>
                             :
-                            <SandpackPreview style={{ height: 'calc(100vh - 140px)', width: '100%' }} showNavigator={true} />
+                            <SandpackPreview className='codeediter' showNavigator={true} />
 
                     }
                 </SandpackLayout>

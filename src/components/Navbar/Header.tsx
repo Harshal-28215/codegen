@@ -27,7 +27,7 @@ function Header() {
     }, [isOpen])
 
     return (
-        <header className='relative'>
+        <header className='relative overflow-x-clip'>
             <div className="absolute top-[-8%] left-1/4 transform -translate-x-1/2 -translate-y-1/2 w-[35rem] h-[22rem] rounded-full bg-gradient-to-r from-pink-500 to-purple-500 filter blur-3xl opacity-50 -z-10"></div>
             <Navbar setIsOpen={setIsOpen} isOpen={isOpen} />
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} ref={sidebarRef}/>
