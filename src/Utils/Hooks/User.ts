@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export const useUser = () => {
 
-    const {user,setUser,userSeted} = useMyContext();
+    const {user,setUser} = useMyContext();
 
     useEffect(() => {
         const getUser = async () => {
@@ -31,7 +31,7 @@ export const useUser = () => {
         };
 
         getUser();
-    }, [userSeted]);
+    }, []);
 
     return { user };
 };

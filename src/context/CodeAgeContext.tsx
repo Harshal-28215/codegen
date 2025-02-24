@@ -37,9 +37,6 @@ interface ContextProps {
 
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-
-  userSeted: boolean;
-  setUserSeted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -60,9 +57,6 @@ const defaultContext: ContextProps = {
 
   open: false,
   setOpen: () => { },
-
-  userSeted: false,
-  setUserSeted: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -74,7 +68,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [files, setFiles] = useState(defaultContext.files);
   const [codeLoading, setCodeLoading] = useState(defaultContext.codeLoading);
   const [open, setOpen] = useState(defaultContext.open);
-  const [userSeted, setUserSeted] = useState(defaultContext.userSeted);
 
 
 
@@ -91,8 +84,6 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     setCodeLoading,
     open,
     setOpen,
-    userSeted,
-    setUserSeted,
   };
 
   return (

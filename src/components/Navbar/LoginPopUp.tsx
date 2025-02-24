@@ -16,8 +16,7 @@ import React from "react";
 
 function LoginPopUp({ opendialog, closedialog }: { opendialog: boolean, closedialog: (value: boolean) => void }) {
 
-    const {setUserSeted} = useMyContext();
-    const { googleLogin } = useLogin(closedialog,setUserSeted);
+    const { googleLogin } = useLogin(closedialog);
     
     return (
         <Dialog open={opendialog} onOpenChange={closedialog}>
