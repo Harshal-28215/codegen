@@ -24,7 +24,7 @@ const FormSchema = z.object({
 })
 
 export function TextareaForm() {
-  const { user, homeprompt } = useMyContext();
+  const { user, homeprompt, setOpen } = useMyContext();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -39,11 +39,17 @@ export function TextareaForm() {
   }, [homeprompt, form.setValue]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+
+    if (user === null) {
+      setOpen(true)
+      return;
+    }
+
     const bodyData = {
       message: data.message,
       role: "user",
       user: user?._id,
-      files:JSON.stringify(File.DEFAULT_FILE)
+      files: JSON.stringify(File.DEFAULT_FILE)
     }
     const response = await fetch(`/api/workspace`, {
       method: "POST",

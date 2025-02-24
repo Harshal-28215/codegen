@@ -1,7 +1,7 @@
 "use client"
 
 import File from '@/Utils/Files and Dependencies/File';
-import React, { createContext, useContext, useState, ReactNode, JSX, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, JSX } from 'react';
 
 type UserType = {
   email: string;
@@ -34,6 +34,9 @@ interface ContextProps {
 
   codeLoading: boolean;
   setCodeLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+  open:boolean;
+  setOpen:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -51,6 +54,9 @@ const defaultContext: ContextProps = {
 
   codeLoading: false,
   setCodeLoading: () => { },
+
+  open:false,
+  setOpen:()=>{}
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -59,8 +65,9 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [user, setUser] = useState(defaultContext.user);
   const [chats, setChats] = useState(defaultContext.chats);
   const [homeprompt, setHomePrompt] = useState(defaultContext.homeprompt);
-  const [files, setFiles] = React.useState(File.DEFAULT_FILE);
-  const [codeLoading, setCodeLoading] = useState(false);
+  const [files, setFiles] = React.useState(defaultContext.files);
+  const [codeLoading, setCodeLoading] = useState(defaultContext.codeLoading);
+    const [open, setOpen] = React.useState(defaultContext.open);
 
 
 
@@ -75,6 +82,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     setFiles,
     codeLoading,
     setCodeLoading,
+    open,
+    setOpen
   };
 
   return (
