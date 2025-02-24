@@ -1,9 +1,9 @@
 "use client"
 
-import { useChat } from '@/Utils/Hooks/workspace';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useRef } from 'react'
 import ChatLoader from './ChatLoader';
+import { useChat } from '@/Utils/Hooks/workspace';
 
 function Chats() {
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -29,9 +29,9 @@ function Chats() {
             <h1 className='bg-white/10 rounded-2xl p-2 w-[70%] ml-[30%]' key={chat._id}>{chat.message}</h1>
             :
             <h1 key={chat._id}>{chat.message}</h1>
-          ))
-        }
-        {loading && <ChatLoader />}
+        ))
+      }
+      {loading && <ChatLoader />}
       <div ref={messagesEndRef} />
     </div>
   )

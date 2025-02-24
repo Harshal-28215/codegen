@@ -4,14 +4,13 @@ import { updatechat } from "../UpdataChatFunction";
 import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
-    const { chats, setChats,setFiles,setCodeLoading } = useMyContext();
+    const { chats, setChats, setFiles } = useMyContext();
     const [loading, setLoading] = useState(false);
     const hasGeneratedResponse = useRef(false);
 
     useEffect(() => {
         async function getChats() {
-            setLoading(true);
-            setCodeLoading(true);
+
             const response = await fetch(`/api/workspace?id=${id}`, {
                 method: 'GET',
                 headers: {
@@ -22,23 +21,20 @@ export function useChat(id: string) {
             if (response.ok) {
                 setChats(data.message);
                 setFiles(data.files);
-                setLoading(false);
-                setCodeLoading(false);
-            }else{
+            } else {
                 console.log('error fetching chat');
-                setLoading(false);
-                setCodeLoading(false);
             }
+
         }
         getChats()
     }, [id])
 
     useEffect(() => {
         async function generateChat() {
-            setLoading(true);
             if (chats.length > 0 &&
                 chats[chats.length - 1].role === 'user' &&
                 !hasGeneratedResponse.current) {
+                setLoading(true);
 
                 hasGeneratedResponse.current = true;
 
@@ -57,21 +53,21 @@ export function useChat(id: string) {
                         message: data.data,
                         role: 'Bot',
                     }
-    
+
                     const updated = await updatechat(bodyData, id, setChats);
                     setLoading(false);
-                    console.log('chat updated');
                     if (updated) {
                         hasGeneratedResponse.current = false;
                     }
+                }else{
+                    setLoading(false);
                 }
             } else {
                 console.log('No new message from user or already generated response');
-                setLoading(false);
             }
         }
         generateChat();
     }, [chats, id])
 
-    return {chats,loading};
+    return { chats, loading };
 }

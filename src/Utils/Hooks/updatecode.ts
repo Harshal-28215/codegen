@@ -6,14 +6,16 @@ import { updatedFiles } from "../UpdateCodeFuntion";
 
 export function useGetFiles(id: string) {
     const hasGeneratedResponse = useRef(false);
-    const { files, setFiles,chats,setCodeLoading,codeLoading } = useMyContext();
+    const { files, setFiles, chats, setCodeLoading, codeLoading } = useMyContext();
 
     useEffect(() => {
         async function getFiles() {
-            setCodeLoading(true);
             if (chats.length > 0 &&
                 chats[chats.length - 1].role === 'user' &&
                 !hasGeneratedResponse.current) {
+                setCodeLoading(true);
+                console.log('code loading');
+                
 
                 hasGeneratedResponse.current = true;
 
@@ -34,35 +36,22 @@ export function useGetFiles(id: string) {
                     await updatedFiles(mergedfile, id);
                     setFiles(mergedfile);
                     setCodeLoading(false);
+                    console.log('code updated1');
+                    
                     hasGeneratedResponse.current = false;
-                }else{
+                } else {
                     setFiles(File.DEFAULT_FILE);
                     setCodeLoading(false);
+                    console.log('code updated2');
+
                 }
+            }else{
+                console.log('code updated else');
             }
-            setCodeLoading(false);
         }
         getFiles()
     }, [chats])
 
-    // useEffect(() => {
-    //     async function updatedFiles() {
-    //         const response = await fetch(`/api/workspace?id=${id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ files })
-    //         })
-    //         if (response.ok) {
-    //             console.log("code updated");
-    //         }else{
-    //             console.log("code not updated");
-    //         }
-    //     }
-    //     updatedFiles()
-    // }, [files])
 
-
-    return { updatedFiles: files,codeLoading };
+    return { updatedFiles: files, codeLoading };
 }
