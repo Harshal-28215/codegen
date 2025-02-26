@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     image: String,
     id: String,
     credit:{type:Number,default:10},
-    gemini:String
+    // gemini:String
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

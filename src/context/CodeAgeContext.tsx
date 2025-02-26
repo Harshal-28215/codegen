@@ -1,7 +1,7 @@
 "use client"
 
 import File from '@/Utils/Files and Dependencies/File';
-import React, { createContext, useContext, useState, ReactNode, JSX } from 'react';
+import React, { createContext, useContext, useState, ReactNode, JSX, useEffect } from 'react';
 
 type UserType = {
   email: string;
@@ -92,6 +92,23 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [credits, setCredits] = useState(defaultContext.credits);
   const [openCredit, setOpenCredit] = useState(defaultContext.open);
 
+  useEffect(() => {
+    async function updateCredits() {
+      try {
+        const response = await fetch(`/api/user?id=${user?._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ credit: credits }),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    updateCredits();
+  }), [credits];
 
 
   const value = {

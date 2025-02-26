@@ -1,13 +1,14 @@
-import User from "@/DbSchema/user";
-import { createCodeSession, setApiKey } from "@/Utils/AiBoilerPlate";
+import { createCodeSession } from "@/Utils/AiBoilerPlate";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-    const { Prompt } = await request.json();
-    // const query = new URL(request.url);
-    // const uid = query.searchParams.get('uid');
+    const { Prompt, credit } = await request.json();
 
     try {
+        if (credit === 0) {
+            return NextResponse.json({ message: "Insufficient Credits" }, { status: 429 });
+        }
+
         const chatSession = createCodeSession();
 
         const response = await chatSession.sendMessage(Prompt);

@@ -43,10 +43,10 @@ export async function PUT(request: Request) {
 
     const { searchParams } = new URL(request.url);
     const { id } = Object.fromEntries(searchParams);
-    const { gemini } = await request.json();
+    const { credit } = await request.json();
 
     try {
-        const users = await User.findByIdAndUpdate(id, { gemini }, { new: true });
+        const users = await User.findByIdAndUpdate(id, { credit }, { new: true });
 
         return NextResponse.json({ message: "Key Updated", users }, { status: 200 });
 

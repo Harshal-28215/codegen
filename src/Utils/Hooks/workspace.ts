@@ -4,7 +4,7 @@ import { updatechat } from "../UpdataChatFunction";
 import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
-    const { chats, setChats, setFiles, user, setCredits, setOpenCredit } = useMyContext();
+    const { chats, setChats, setFiles, user, setCredits, setOpenCredit,credits } = useMyContext();
     const [loading, setLoading] = useState(false);
     const hasGeneratedResponse = useRef(false);
 
@@ -45,7 +45,7 @@ export function useChat(id: string) {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ Prompt })
+                    body: JSON.stringify({ Prompt, credit: credits})
                 })
                 const data = await response.json()
                 if (response.ok) {

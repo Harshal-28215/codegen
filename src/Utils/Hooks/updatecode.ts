@@ -6,7 +6,7 @@ import { updatedFiles } from "../UpdateCodeFuntion";
 
 export function useGetFiles(id: string) {
     const hasGeneratedResponse = useRef(false);
-    const { files, setFiles, chats, setCodeLoading, codeLoading, user } = useMyContext();
+    const { files, setFiles, chats, setCodeLoading, codeLoading, user, credits } = useMyContext();
 
     useEffect(() => {
         async function getFiles() {
@@ -27,7 +27,7 @@ export function useGetFiles(id: string) {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ Prompt })
+                    body: JSON.stringify({ Prompt, credit: credits })
                 })
                 const data = await response.json();
                 if (response.ok) {
