@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     image: String,
     id: String,
-    credit:{type:Number,default:3},
+    credit:{type:Number,default:10},
     gemini:String
 });
 
