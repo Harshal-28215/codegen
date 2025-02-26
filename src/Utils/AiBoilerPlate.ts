@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 let apiKey: string | undefined;
-apiKey = process.env.REACT_APP_GENERATIVE_API_KEY;
+apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 export function setApiKey(key: string) {
     apiKey = key;

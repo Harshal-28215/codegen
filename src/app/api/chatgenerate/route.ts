@@ -22,8 +22,10 @@ export async function POST(request:Request){
         const response = await chatSession.sendMessage(Prompt);
         const res = response.response.text();
         
-        user.credit -= 1;
-        await user.save();
+        if (user.gemini === "") {
+            user.credit -= 1;
+            await user.save();
+        }
 
         return NextResponse.json({message:"chat generated",data:res},{status:200});
     }catch(error){
