@@ -4,7 +4,7 @@ import { updatechat } from "../UpdataChatFunction";
 import prompts from "../Prompts/prompts";
 
 export function useChat(id: string) {
-    const { chats, setChats, setFiles } = useMyContext();
+    const { chats, setChats, setFiles, user, setCredits, setOpenCredit } = useMyContext();
     const [loading, setLoading] = useState(false);
     const hasGeneratedResponse = useRef(false);
 
@@ -40,7 +40,7 @@ export function useChat(id: string) {
 
                 const messages = chats.map(chat => chat.message).join('\n');
                 const Prompt = JSON.stringify({ messages }) + prompts.CHAT_PROMPT;
-                const response = await fetch(`/api/chatgenerate`, {
+                const response = await fetch(`/api/chatgenerate?uid=${user?._id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -55,10 +55,15 @@ export function useChat(id: string) {
                     }
 
                     const updated = await updatechat(bodyData, id, setChats);
+                    setCredits(prev=>prev-1);
                     setLoading(false);
                     if (updated) {
                         hasGeneratedResponse.current = false;
                     }
+                }else if (response.status === 429) {
+                    setOpenCredit(true);
+                    setLoading(false);
+                    
                 }else{
                     setLoading(false);
                 }

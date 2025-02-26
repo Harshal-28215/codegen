@@ -7,6 +7,7 @@ import { redirect, useParams } from 'next/navigation'
 import SidebarChats from './SidebarChats'
 import { useSideBarChat } from '@/Utils/Hooks/SideBarChat'
 import Logout from './Logout'
+import Credits from './Credits'
 
 const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }>(({ isOpen, setIsOpen }, ref) => {
 
@@ -35,6 +36,7 @@ const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean, setIsOpen: React.D
                 ))}
             </div>
 
+            <Credits />
             <Logout />
         </aside>
     )

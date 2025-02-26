@@ -9,6 +9,8 @@ type UserType = {
   _id: string;
   image: string;
   name: string;
+  credit: number;
+  gemini: string;
 };
 
 export type Chat = {
@@ -40,6 +42,12 @@ interface ContextProps {
 
   loginLoading: boolean;
   setLoginLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+  credits: number;
+  setCredits: React.Dispatch<React.SetStateAction<number>>;
+
+  openCredit: boolean;
+  setOpenCredit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultContext: ContextProps = {
@@ -63,6 +71,12 @@ const defaultContext: ContextProps = {
 
   loginLoading: false,
   setLoginLoading: () => { },
+
+  credits: 0,
+  setCredits: () => { },
+
+  openCredit: false,
+  setOpenCredit: () => { },
 }
 
 const MyContext = createContext<ContextProps>(defaultContext);
@@ -75,6 +89,8 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
   const [codeLoading, setCodeLoading] = useState(defaultContext.codeLoading);
   const [open, setOpen] = useState(defaultContext.open);
   const [loginLoading, setLoginLoading] = useState(defaultContext.loginLoading);
+  const [credits, setCredits] = useState(defaultContext.credits);
+  const [openCredit, setOpenCredit] = useState(defaultContext.open);
 
 
 
@@ -93,6 +109,10 @@ export const MyProvider: React.FC<{ children: ReactNode }> = ({ children }): JSX
     setOpen,
     loginLoading,
     setLoginLoading,
+    credits,
+    setCredits,
+    openCredit,
+    setOpenCredit,
   };
 
   return (

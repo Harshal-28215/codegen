@@ -6,7 +6,7 @@ import { updatedFiles } from "../UpdateCodeFuntion";
 
 export function useGetFiles(id: string) {
     const hasGeneratedResponse = useRef(false);
-    const { files, setFiles, chats, setCodeLoading, codeLoading } = useMyContext();
+    const { files, setFiles, chats, setCodeLoading, codeLoading, user } = useMyContext();
 
     useEffect(() => {
         async function getFiles() {
@@ -22,7 +22,7 @@ export function useGetFiles(id: string) {
                 const messages = chats.map(chat => chat.message).join('\n');
                 const Prompt = JSON.stringify({ messages }) + " " + prompts.CODE_GEN_PROMPT;
 
-                const response = await fetch('/api/codegenerate', {
+                const response = await fetch(`/api/codegenerate?uid=${user?._id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

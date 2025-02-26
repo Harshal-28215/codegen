@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export const useUser = () => {
 
-    const {user,setUser} = useMyContext();
+    const {user,setUser,setCredits} = useMyContext();
 
     useEffect(() => {
         const getUser = async () => {
@@ -21,6 +21,7 @@ export const useUser = () => {
                     if (response.ok) {
                         const data = await response.json();
                         setUser(data.users);
+                        setCredits(data.users.credit);
                     } else {
                         console.error("User not found");
                     }

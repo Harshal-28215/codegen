@@ -28,12 +28,29 @@ export async function GET(request: Request) {
     await connectToDatabase();
 
     const { searchParams } = new URL(request.url);
-    const {email,id} = Object.fromEntries(searchParams);
-    const users = await User.findOne({email});
+    const { email, id } = Object.fromEntries(searchParams);
+    const users = await User.findOne({ email });
 
     if (users.id === id) {
-        return NextResponse.json({message:"User Found",users},{status:200});
-    }else{
-        return NextResponse.json({message:"User not found"},{status:404});
+        return NextResponse.json({ message: "User Found", users }, { status: 200 });
+    } else {
+        return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+}
+
+export async function PUT(request: Request) {
+    await connectToDatabase();
+
+    const { searchParams } = new URL(request.url);
+    const { id } = Object.fromEntries(searchParams);
+    const { gemini } = await request.json();
+
+    try {
+        const users = await User.findByIdAndUpdate(id, { gemini }, { new: true });
+
+        return NextResponse.json({ message: "Key Updated", users }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({ message: "User not found", error }, { status: 404 });
     }
 }

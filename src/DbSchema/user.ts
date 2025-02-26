@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     image: String,
     id: String,
+    credit:{type:Number,default:3},
+    gemini:String
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

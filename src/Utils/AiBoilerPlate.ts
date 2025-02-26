@@ -1,42 +1,54 @@
-import {GoogleGenerativeAI} from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-if (!apiKey) {
-    throw new Error("API key is not defined");
+let apiKey: string | undefined;
+apiKey = process.env.REACT_APP_GENERATIVE_API_KEY;
+
+export function setApiKey(key: string) {
+    apiKey = key;
 }
-const genAI = new GoogleGenerativeAI(apiKey);
 
-const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-});
+export function createChatSession() {
+    if (!apiKey) {
+        throw new Error("API key is not defined");
+    }
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+        model: "gemini-2.0-flash",
+    });
 
-const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 40,
-    maxOutputTokens: 8192,
-    responseMimeType: "text/plain",
-};
+    const generationConfig = {
+        temperature: 1,
+        topP: 0.95,
+        topK: 40,
+        maxOutputTokens: 8192,
+        responseMimeType: "text/plain",
+    };
 
-const codeGenerationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 40,
-    maxOutputTokens: 8192,
-    responseMimeType: "application/json",
-};
-
-    export const chatSession = model.startChat({
+    return model.startChat({
         generationConfig,
-        history: [
-        ],
+        history: [],
+    });
+}
+
+export function createCodeSession() {
+    if (!apiKey) {
+        throw new Error("API key is not defined");
+    }
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+        model: "gemini-2.0-flash",
     });
 
-    export const codeSession = model.startChat({
+    const codeGenerationConfig = {
+        temperature: 1,
+        topP: 0.95,
+        topK: 40,
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json",
+    };
+
+    return model.startChat({
         generationConfig: codeGenerationConfig,
-        history: [
-        ],
+        history: [],
     });
-
-    // const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-    // console.log(result.response.text());
+}
