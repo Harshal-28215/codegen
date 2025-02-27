@@ -1,4 +1,4 @@
-import { createCodeSession } from "@/Utils/AiBoilerPlate";
+import { codeSession } from "@/Utils/AiBoilerPlate";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,9 +9,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: "Insufficient Credits" }, { status: 429 });
         }
 
-        const chatSession = createCodeSession();
-
-        const response = await chatSession.sendMessage(Prompt);
+        const response = await codeSession.sendMessage(Prompt);
         const data = response.response.text();
 
         return NextResponse.json(JSON.parse(data), { status: 200 });

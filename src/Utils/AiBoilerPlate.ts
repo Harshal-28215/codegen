@@ -1,13 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-let apiKey: string | undefined;
-apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-export function setApiKey(key: string) {
-    apiKey = key;
-}
-
-export function createChatSession() {
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     if (!apiKey) {
         throw new Error("API key is not defined");
     }
@@ -23,22 +16,6 @@ export function createChatSession() {
         maxOutputTokens: 8192,
         responseMimeType: "text/plain",
     };
-
-    return model.startChat({
-        generationConfig,
-        history: [],
-    });
-}
-
-export function createCodeSession() {
-    if (!apiKey) {
-        throw new Error("API key is not defined");
-    }
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
-    });
-
     const codeGenerationConfig = {
         temperature: 1,
         topP: 0.95,
@@ -46,9 +23,13 @@ export function createCodeSession() {
         maxOutputTokens: 8192,
         responseMimeType: "application/json",
     };
-
-    return model.startChat({
-        generationConfig: codeGenerationConfig,
+    
+    export const chatSession = model.startChat({
+        generationConfig,
         history: [],
     });
-}
+
+    export const codeSession = model.startChat({
+        generationConfig:codeGenerationConfig,
+        history: [],
+    });
